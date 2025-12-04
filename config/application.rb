@@ -10,8 +10,8 @@ module Orderpath
     config.api_only = true
     config.time_zone = 'UTC'
     
-    # Allow Rails to start even if database is not connected
-    config.active_record.legacy_connection_handling = false
+    # Don't verify database connection on startup (allows app to start even if DB not ready)
+    config.active_record.verify_foreign_keys = false
     
     config.middleware.insert_before 0, Rack::Cors do
       allow do
