@@ -1,10 +1,9 @@
-# Simple healthcheck controller for Railway
-# This is a minimal endpoint that just confirms the server is running
-class HealthController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  
+# Ultra-simple healthcheck controller for Railway
+# This endpoint has ZERO dependencies - no database, no models, nothing
+class HealthController < ActionController::API
   def index
-    render json: { status: 'ok', service: 'orderpath', timestamp: Time.current.iso8601 }
+    # Return immediately without any database queries or model loading
+    render json: { status: 'ok' }, status: :ok
   end
 end
 

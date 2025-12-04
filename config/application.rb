@@ -10,6 +10,9 @@ module Orderpath
     config.api_only = true
     config.time_zone = 'UTC'
     
+    # Allow Rails to start even if database is not connected
+    config.active_record.legacy_connection_handling = false
+    
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
