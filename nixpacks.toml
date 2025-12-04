@@ -2,7 +2,7 @@
 nixPkgs = ["ruby_3_2", "postgresql", "redis"]
 
 [phases.install]
-cmds = ["BUNDLE_WITHOUT='development:test' bundle install"]
+cmds = ["bundle config set --local without 'development test'", "bundle install"]
 
 [phases.build]
 cmds = ["bundle exec rails db:migrate || true"]
