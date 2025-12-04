@@ -1,0 +1,5 @@
+# Railway ignore file
+# Railway will use Nixpacks instead of Dockerfile
+Dockerfile
+Dockerfile.backup
+
