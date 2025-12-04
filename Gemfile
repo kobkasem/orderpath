@@ -14,15 +14,15 @@ gem 'httparty', '~> 0.21.0'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 6.0'
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw], require: false
+  gem 'rspec-rails', '~> 6.0', require: false
+  gem 'factory_bot_rails', '~> 6.2', require: false
 end
 
 group :development do
-  gem 'web-console', '>= 4.2.0'
-  gem 'listen', '~> 3.3'
-  gem 'spring'
+  gem 'web-console', '>= 4.2.0', require: false
+  gem 'listen', '~> 3.3', require: false
+  gem 'spring', require: false
 end
 
 
