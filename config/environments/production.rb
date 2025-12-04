@@ -12,7 +12,8 @@ Rails.application.configure do
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
   config.active_record.dump_schema_after_migration = false
-  config.force_ssl = true
+  # Only force SSL if explicitly set
+  config.force_ssl = ENV['FORCE_SSL'] == 'true'
 end
 
 
