@@ -3,33 +3,47 @@ class Api::V1::MonitoringController < ApplicationController
   skip_before_action :verify_authenticity_token, if: :json_request?
   
   def status
-    stats = {
-      orders: {
-        total: Order.count,
-        pending: Order.pending.count,
-        processing: Order.processing.count,
-        completed: Order.where(status: 'completed').count,
-        failed: Order.failed.count
-      },
-      picking_slips: {
-        total: PickingSlip.count,
-        pending: PickingSlip.where(status: 'pending').count,
-        printed: PickingSlip.where(status: 'printed').count,
-        failed: PickingSlip.where(status: 'failed').count
-      },
-      api_logs: {
-        total: ApiLog.count,
-        pending: ApiLog.pending.count,
-        success: ApiLog.where(status: 'success').count,
-        failed: ApiLog.failed.count
-      },
-      printers: {
-        total: Printer.count,
-        active: Printer.active.count
-      }
-    }
+    begin
+      # Test database connection
+      ActiveRecord::Base.connection.execute("SELECT 1")
+      db_connected = true
+    rescue => e
+      db_connected = false
+      Rails.logger.error "Database connection failed: #{e.message}"
+    end
     
-    render json: { status: stats }
+    if db_connected
+      stats = {
+        orders: {
+          total: Order.count,
+          pending: Order.pending.count,
+          processing: Order.processing.count,
+          completed: Order.where(status: 'completed').count,
+          failed: Order.failed.count
+        },
+        picking_slips: {
+          total: PickingSlip.count,
+          pending: PickingSlip.where(status: 'pending').count,
+          printed: PickingSlip.where(status: 'printed').count,
+          failed: PickingSlip.where(status: 'failed').count
+        },
+        api_logs: {
+          total: ApiLog.count,
+          pending: ApiLog.pending.count,
+          success: ApiLog.where(status: 'success').count,
+          failed: ApiLog.failed.count
+        },
+        printers: {
+          total: Printer.count,
+          active: Printer.active.count
+        }
+      }
+      
+      render json: { status: 'ok', database: 'connected', stats: stats }
+    else
+      # Return basic healthcheck even if DB is not connected
+      render json: { status: 'ok', database: 'disconnected' }, status: :service_unavailable
+    end
   end
   
   def errors
