@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # Root healthcheck endpoint
+  # Simple healthcheck endpoint (fastest, most reliable)
+  get '/health', to: 'health#index'
+  
+  # Root healthcheck endpoint (also works)
   root to: 'api/v1/monitoring#status'
   
   namespace :api do
