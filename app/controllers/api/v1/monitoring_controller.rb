@@ -1,4 +1,7 @@
 class Api::V1::MonitoringController < ApplicationController
+  # Skip authentication for healthcheck
+  skip_before_action :verify_authenticity_token, if: :json_request?
+  
   def status
     stats = {
       orders: {

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Root healthcheck endpoint
+  root to: 'api/v1/monitoring#status'
+  
   namespace :api do
     namespace :v1 do
       # Customer API endpoints
