@@ -8,6 +8,6 @@ cmds = ["bundle config set --local without 'development test'", "bundle install"
 cmds = ["bundle exec rails db:migrate || true"]
 
 [start]
-cmd = "bundle exec rails server -b 0.0.0.0 -p $PORT"
+cmd = "bundle exec puma -C config/puma.rb"
 
 
