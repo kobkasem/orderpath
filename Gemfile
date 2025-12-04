@@ -14,7 +14,7 @@ gem 'httparty', '~> 0.21.0'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw], require: false
+  gem 'byebug', require: false
   gem 'rspec-rails', '~> 6.0', require: false
   gem 'factory_bot_rails', '~> 6.2', require: false
 end
