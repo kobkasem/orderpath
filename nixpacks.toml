@@ -1,0 +1,13 @@
+[phases.setup]
+nixPkgs = ["ruby_3_2", "postgresql", "redis"]
+
+[phases.install]
+cmds = ["bundle install"]
+
+[phases.build]
+cmds = ["bundle exec rails db:migrate"]
+
+[start]
+cmd = "bundle exec rails server -b 0.0.0.0 -p $PORT"
+
+
