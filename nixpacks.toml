@@ -2,12 +2,12 @@
 nixPkgs = ["ruby_3_2", "postgresql", "redis"]
 
 [phases.install]
-cmds = ["RAILS_ENV=production BUNDLE_WITHOUT='development:test' bundle install"]
+cmds = ["bundle config set --local without 'development test'", "bundle install"]
 
 [phases.build]
-cmds = ["RAILS_ENV=production bundle exec rails db:migrate || true"]
+cmds = ["bundle exec rails db:migrate || true"]
 
 [start]
-cmd = "RAILS_ENV=production bundle exec rails server -b 0.0.0.0 -p $PORT"
+cmd = "bundle exec rails server -b 0.0.0.0 -p $PORT"
 
 
